@@ -1,0 +1,3 @@
+curl -i -H "Content-Type:application/json" -d '{"userId":"user-123", "packageId":"package-123"}' https://ums-superciliary-photoconductivity.apps.cumuluslabs.io/subscriptions
+curl -i https://ums-superciliary-photoconductivity.apps.cumuluslabs.io/subscriptions
+./gradlew submitCloudNativeEvolutionMonolith -PumsUrl=https://ums-superciliary-photoconductivity.apps.cumuluslabs.io

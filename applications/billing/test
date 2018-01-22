@@ -1,0 +1,1 @@
+curl -i -H "Content-Type:application/json" -d '{"userId":"user-123", "amount":"package-123"}' localhost:8080/reoccurringPayment

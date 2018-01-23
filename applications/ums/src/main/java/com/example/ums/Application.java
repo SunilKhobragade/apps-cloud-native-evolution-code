@@ -35,8 +35,8 @@ public class Application implements CommandLineRunner {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
-    @Autowired
-    EurekaClient discoveryClient;
+    /*@Autowired
+    EurekaClient discoveryClient;*/
 
     @Override
     public void run(String... strings) throws Exception {
@@ -63,17 +63,25 @@ public class Application implements CommandLineRunner {
     }
 
 
-    public String fetchBillingServiceUrl() {
+    /*public String fetchBillingServiceUrl() {
         InstanceInfo instance = discoveryClient.getNextServerFromEureka("BILLING", false);
         logger.info("instanceID: {}", instance.getId());
         String billingServiceUrl = instance.getHomePageUrl();
         logger.info("Billing service homePageUrl: {}", billingServiceUrl);
         return billingServiceUrl;
-    }
+    }*/
 
-    @Bean
+   /* @Bean
     public BillingClient billingClient() {
         String billingClientURL = fetchBillingServiceUrl();
+        return new BillingClient(billingClientURL);
+
+    }*/
+
+    @Bean
+    public BillingClient billingClient(@Value("${billingClientURL}") String billingClientURL) {
+        //String billingClientURL = fetchBillingServiceUrl();
+        //return new BillingClient(billingClientURL);
         return new BillingClient(billingClientURL);
     }
 

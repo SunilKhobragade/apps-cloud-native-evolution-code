@@ -37,7 +37,7 @@ public class BillingClient {
         params.put("userId", userId);
         params.put("amount", paymentMonthlyAmount);
         //restTemplate.postForEntity(serviceURL+"/reoccurringPayment",params, String.class);
-        restTemplate.postForEntity("http://BILLING"+"/reoccurringPayment",params, String.class);
+        restTemplate.postForEntity(serviceURL,params, String.class);
         logger.info("Real billing service is  used.");
         logger.info("UserId: "+userId + " : amount : "+paymentMonthlyAmount);
     }

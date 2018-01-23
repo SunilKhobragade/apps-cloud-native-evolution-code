@@ -1,7 +1,7 @@
 server:
   port: 8080
 
-billingClientURL: http://localhost:8085
+billingClientURL: http://billing/reoccurringPayment
 spring:
   application:
     name: ums

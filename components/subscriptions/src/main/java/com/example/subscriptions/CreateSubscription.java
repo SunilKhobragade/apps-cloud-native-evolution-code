@@ -18,6 +18,14 @@ public class CreateSubscription {
         this.subscriptions = subscriptions;
     }*/
 
+    /*public CreateSubscription(
+            HttpBillingClient httpBillingClient,
+            SendEmail emailSender, SubscriptionRepository subscriptions) {
+        this.httpBillingClient = httpBillingClient;
+        this.emailSender = emailSender;
+        this.subscriptions = subscriptions;
+    }*/
+
     public CreateSubscription(
             BillingClient billingClient,
             SendEmail emailSender, SubscriptionRepository subscriptions) {

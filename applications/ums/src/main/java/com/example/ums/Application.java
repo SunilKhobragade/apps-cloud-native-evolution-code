@@ -1,11 +1,11 @@
 package com.example.ums;
 
-import com.example.billing.BillingClient;
+import com.example.billing.HttpBillingClient;
+import com.example.billing.RabbitBillingClient;
 import com.example.subscriptions.SubscriptionRepository;
-import com.netflix.appinfo.InstanceInfo;
-import com.netflix.discovery.EurekaClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
@@ -35,6 +35,9 @@ public class Application implements CommandLineRunner {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
+    @Autowired
+    RabbitTemplate rabbitTemplate;
+
     /*@Autowired
     EurekaClient discoveryClient;*/
 
@@ -52,8 +55,8 @@ public class Application implements CommandLineRunner {
     }
 
     /*@Bean
-    public BillingClient billingClient(@Value("${billingClientURL}") String billingClient) {
-        return new BillingClient(billingClient);
+    public HttpBillingClient billingClient(@Value("${billingClientURL}") String billingClient) {
+        return new HttpBillingClient(billingClient);
     }*/
 
     @LoadBalanced
@@ -61,7 +64,6 @@ public class Application implements CommandLineRunner {
     RestTemplate restTemplate(){
         return new RestTemplate();
     }
-
 
     /*public String fetchBillingServiceUrl() {
         InstanceInfo instance = discoveryClient.getNextServerFromEureka("BILLING", false);
@@ -72,17 +74,22 @@ public class Application implements CommandLineRunner {
     }*/
 
    /* @Bean
-    public BillingClient billingClient() {
+    public HttpBillingClient billingClient() {
         String billingClientURL = fetchBillingServiceUrl();
-        return new BillingClient(billingClientURL);
+        return new HttpBillingClient(billingClientURL);
 
     }*/
 
     @Bean
-    public BillingClient billingClient(@Value("${billingClientURL}") String billingClientURL) {
+    public HttpBillingClient billingClient(@Value("${billingClientURL}") String billingClientURL) {
         //String billingClientURL = fetchBillingServiceUrl();
-        //return new BillingClient(billingClientURL);
-        return new BillingClient(billingClientURL);
+        //return new HttpBillingClient(billingClientURL);
+        return new HttpBillingClient(billingClientURL);
+    }
+
+    @Bean
+    public RabbitBillingClient rabbitBillingClient(@Value("${queue-name}") String umsQueue) {
+        return new RabbitBillingClient(umsQueue,rabbitTemplate);
     }
 
 }

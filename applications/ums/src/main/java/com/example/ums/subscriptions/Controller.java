@@ -1,6 +1,7 @@
 package com.example.ums.subscriptions;
 
 import com.example.billing.BillingClient;
+import com.example.billing.HttpBillingClient;
 import com.example.email.SendEmail;
 import com.example.subscriptions.CreateSubscription;
 import com.example.subscriptions.Subscription;
@@ -29,13 +30,16 @@ public class Controller {
 
     String billingClientUrl;
 
-    //private BillingClient billingClient;
+    //private HttpBillingClient httpBillingClient;
+
+    /*@Autowired
+    HttpBillingClient httpBillingClient;*/
 
     @Autowired
     BillingClient billingClient;
 
-    /*public Controller(@Autowired BillingClient billingClient, EurekaClient discoveryClient){
-        this.billingClient = billingClient;
+    /*public Controller(@Autowired HttpBillingClient httpBillingClient, EurekaClient discoveryClient){
+        this.httpBillingClient = httpBillingClient;
         this.discoveryClient = discoveryClient;
     }*/
 
@@ -48,10 +52,13 @@ public class Controller {
     public ResponseEntity<String> create(@RequestBody Map<String, String> params) {
 
         //ChargeUser paymentCreator = new ChargeUser(new RecurlyGateway());
-        //BillingClient billingClient = new BillingClient(billingClientUrl);
+        //HttpBillingClient httpBillingClient = new HttpBillingClient(billingClientUrl);
         SendEmail emailSender = new SendEmail();
 
         /*new CreateSubscription(paymentCreator, emailSender, subscriptions)
+                .run(params.get("userId"), params.get("packageId"));*/
+
+       /* new CreateSubscription(httpBillingClient, emailSender, subscriptions)
                 .run(params.get("userId"), params.get("packageId"));*/
 
         new CreateSubscription(billingClient, emailSender, subscriptions)
